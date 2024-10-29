@@ -1,0 +1,9 @@
+//import './navbar.css'
+
+const Navbar = () => {
+  return (
+    <div className='navbar absolute z-10 right-10'>Navbar</div>
+  )
+}
+
+export default Navbar
