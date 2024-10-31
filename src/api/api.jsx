@@ -19,8 +19,6 @@ export const fetchTopTrendingProjects = async () => {
       params: {
         q: "stars:>10000 license:mit", // Filter for open-source licenses
         sort: "stars",
-        per_page: 150, // Limit to 100 results per page
-        page: 1,
       },
     });
     return response.data.items;
@@ -30,7 +28,6 @@ export const fetchTopTrendingProjects = async () => {
   }
 };
 
-
 // Function to fetch all projects sorted by stars
 export const fetchAllProjects = async () => {
   try {
@@ -39,8 +36,7 @@ export const fetchAllProjects = async () => {
         q: "stars:>0", // Fetch all projects with at least one star
         sort: "stars",
         order: "desc", // Sort in descending order
-        per_page: 150, // Limit to 100 results per page
-        page: 1,
+        per_page: 10000,
       },
     });
     return response.data.items;
@@ -49,8 +45,6 @@ export const fetchAllProjects = async () => {
     return [];
   }
 };
-
-
 
 // Function to fetch projects licensed under MIT
 export const fetchMITProjects = async () => {
@@ -307,7 +301,6 @@ export const fetchArtisticProjects = async () => {
     return [];
   }
 };
-
 
 export const cleanDescription = (description) => {
   return description.replace(/^:+\s*/, "").trim();

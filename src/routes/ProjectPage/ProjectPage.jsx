@@ -92,7 +92,7 @@ const ProjectPage = () => {
   const totalPages = Math.ceil(filteredProjects.length / projectsPerPage); // Calculate total number of pages
 
   return (
-    <div className="px-[1.2rem] mt-[1.5rem]">
+    <div className="px-[1.2rem] mt-[4rem]">
       {" "}
       {/* Main container */}
       <div className="flex items-center md:flex-row justify-between mb-4">

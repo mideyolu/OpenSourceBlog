@@ -1,10 +1,10 @@
 const Button = ({ children, onClick }) => {
   return (
     <div
-      className="px-[0.6rem] w-[100%] cursor-pointer hover:scale-105 py-[0.8rem] font-semibold bg-white text-blue-500 rounded-md transition duration-200 text-2rem lg:text-[1.3rem] md:text-[1rem]"
+      className="px-[0.6rem] w-[100%] cursor-pointer hover:scale-105 py-[0.8rem] font-semibold bg-white mx-2 border  rounded-md transition duration-200 text-2rem lg:text-[1.3rem] md:text-[1rem]"
       onClick={onClick} // Event handler for button clicks
     >
-      {children} 
+      {children}
       {/* // Render the content passed between the opening and closing
       tags of the Button component */}
     </div>
