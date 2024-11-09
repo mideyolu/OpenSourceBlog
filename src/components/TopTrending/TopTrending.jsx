@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import { fetchTrendingProjects, cleanDescription } from "../../api/api";
 import ProjectCard from "../ProjectCard/ProjectCard";
 import Loader from "../Loader/Loader";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const TopTrending = () => {
   const [trendingProjects, setTrendingProjects] = useState([]);
@@ -35,6 +38,22 @@ const TopTrending = () => {
     setLicenseType(e.target.value);
   };
 
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 300,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    arrows: false,
+    autoplaySpeed: 3000,
+    responsive: [
+      { breakpoint: 1024, settings: { slidesToShow: 3 } },
+      { breakpoint: 768, settings: { slidesToShow: 2 } },
+      { breakpoint: 480, settings: { slidesToShow: 1 } },
+    ],
+  };
+
   return (
     <div className="mt-[4rem]">
       <label className=" ">
@@ -60,12 +79,12 @@ const TopTrending = () => {
         </select>
       </label>
 
-      {error && <p>{error}</p>}
+
 
       {loading ? (
         <Loader /> // Display loader when loading
       ) : (
-        <div className=" mt-3 grid grid-cols-1 md:grid-cols-3">
+        <Slider {...sliderSettings} className="my-[3rem] mt-3 grid grid-cols-1 md:grid-cols-3">
           {trendingProjects.map((project) => (
             <ProjectCard
               key={project.id} // Unique key for each project card
@@ -78,7 +97,7 @@ const TopTrending = () => {
               forks={project.forks_count} // Number of forks for the project
             />
           ))}
-        </div>
+        </Slider>
       )}
     </div>
   );

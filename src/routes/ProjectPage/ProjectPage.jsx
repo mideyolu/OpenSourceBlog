@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { fetchProjectsByLicense, cleanDescription, truncateDescription } from "../../api/api";
+import {
+  fetchProjectsByLicense,
+  cleanDescription,
+  truncateDescription,
+} from "../../api/api";
 import ProjectCard from "../../components/ProjectCard/ProjectCard";
 import Loader from "../../components/Loader/Loader";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const ProjectPage = () => {
   const [projects, setProjects] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
-  const [licenseType, setLicenseType] = useState(""); // Default to empty for "All"
+  const [licenseType, setLicenseType] = useState("");
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const projectsPerPage = 12;
+  const projectsPerRow = 4; // Define how many projects per row in each slider
 
   const handleLicenseChange = (e) => {
     setLicenseType(e.target.value);
@@ -31,10 +39,9 @@ const ProjectPage = () => {
       } catch (error) {
         console.error("Failed to load projects:", error);
       }
-      // Show the loader for 2 seconds before hiding it
       setTimeout(() => {
         setLoading(false);
-      }, 3000); // 2-second loader delay
+      }, 3000);
     };
 
     getProjects();
@@ -45,10 +52,9 @@ const ProjectPage = () => {
       project.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredProjects(filtered);
-    setCurrentPage(1); // Reset to first page when filters change
+    setCurrentPage(1);
   }, [searchQuery, projects]);
 
-  // Get projects to display based on the current page
   const indexOfLastProject = currentPage * projectsPerPage;
   const indexOfFirstProject = indexOfLastProject - projectsPerPage;
   const currentProjects = filteredProjects.slice(
@@ -66,6 +72,23 @@ const ProjectPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
 
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 300,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    arrows: false,
+    autoplaySpeed: 2000,
+  };
+
+  // Split projects into rows
+  const rows = [];
+  for (let i = 0; i < currentProjects.length; i += projectsPerRow) {
+    rows.push(currentProjects.slice(i, i + projectsPerRow));
+  }
+
   return (
     <div>
       <div className="mt-4 flex flex-col md:flex-row items-center justify-center md:justify-around space-x-4 md:space-x-9 gap-4">
@@ -82,7 +105,7 @@ const ProjectPage = () => {
             <select
               value={licenseType}
               onChange={handleLicenseChange}
-              className=" dark:text-black cursor-pointer py-2 ml-2 rounded-md"
+              className="dark:text-black cursor-pointer py-2 ml-2 rounded-md"
             >
               <option value="">All</option>
               <option value="mit">MIT</option>
@@ -105,31 +128,35 @@ const ProjectPage = () => {
 
       <div className="bottom">
         {loading ? (
-          <Loader /> // Show the loader when data is still being fetched
+          <Loader />
         ) : (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-3 my-4 mx-2 space-y-4">
-              {currentProjects.map((project) => (
-                <ProjectCard
-                  key={project.id}
-                  title={project.name}
-                  description={truncateDescription(cleanDescription(project.description))}
-                  url={project.html_url}
-                  imageurl={project.owner.avatar_url}
-                  stars={project.stargazers_count}
-                  license={
-                    project.license ? project.license.name : "No License"
-                  }
-                  forks={project.forks_count}
-                />
-              ))}
-            </div>
+            {rows.map((row, rowIndex) => (
+              <Slider key={rowIndex} {...sliderSettings} className="my-4">
+                {row.map((project) => (
+                  <ProjectCard
+                    key={project.id}
+                    title={project.name}
+                    description={truncateDescription(
+                      cleanDescription(project.description)
+                    )}
+                    url={project.html_url}
+                    imageurl={project.owner.avatar_url}
+                    stars={project.stargazers_count}
+                    license={
+                      project.license ? project.license.name : "No License"
+                    }
+                    forks={project.forks_count}
+                  />
+                ))}
+              </Slider>
+            ))}
 
             <div className="pagination-controls mt-4 flex items-center justify-center space-x-4">
               <button
                 onClick={handlePrevPage}
                 disabled={currentPage === 1}
-                className="px-[0.6rem] w-[20%] cursor-pointer hover:scale-105 py-[0.8rem] font-semibold bg-white mx-2 border  rounded-md transition duration-200 text-2rem lg:text-[1.3rem] md:text-[1rem] dark:text-black"
+                className="px-[0.6rem] w-[20%] cursor-pointer hover:scale-105 py-[0.8rem] font-semibold bg-white mx-2 border rounded-md transition duration-200 text-2rem lg:text-[1.3rem] md:text-[1rem] dark:text-black"
               >
                 Previous
               </button>
@@ -139,7 +166,7 @@ const ProjectPage = () => {
               <button
                 onClick={handleNextPage}
                 disabled={currentPage === totalPages}
-                className="px-[0.6rem] w-[20%] cursor-pointer hover:scale-105 py-[0.8rem] font-semibold bg-white mx-2 border  rounded-md transition duration-200 text-2rem lg:text-[1.3rem] md:text-[1rem] dark:text-black"
+                className="px-[0.6rem] w-[20%] cursor-pointer hover:scale-105 py-[0.8rem] font-semibold bg-white mx-2 border rounded-md transition duration-200 text-2rem lg:text-[1.3rem] md:text-[1rem] dark:text-black"
               >
                 Next
               </button>

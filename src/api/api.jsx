@@ -1,13 +1,24 @@
+// api.jsx
+
 import axios from "axios";
 
-// Set up the GitHub API token in your headers
+// Set up the GitHub API token and headers
 const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
 const headers = {
   Authorization: `token ${GITHUB_TOKEN}`,
   Accept: "application/vnd.github.v3+json",
 };
 
-// Fetch trending projects directly from GitHub by license type
+const api = axios.create({
+  baseURL: "https://api.github.com",
+  headers,
+});
+
+
+
+
+
+// Fetch trending projects based on license type
 export const fetchTrendingProjects = async (licenseType, perPage = 6) => {
   try {
     const response = await axios.get(
@@ -22,23 +33,22 @@ export const fetchTrendingProjects = async (licenseType, perPage = 6) => {
         headers,
       }
     );
-    return response.data.items; // Directly returning items array
+    return response.data.items; // Return only the items array
   } catch (error) {
     console.error("Error fetching trending projects:", error);
     throw error;
   }
 };
 
-// Fetch projects from GitHub by license type
+// Fetch projects from GitHub by license type with pagination for up to 1000 results
 export const fetchProjectsByLicense = async (licenseType = "") => {
-  const licenseQuery = licenseType ? `license:${licenseType}` : ""; // Only apply if a specific license is selected
-  const perPage = 100; // GitHub allows a maximum of 100 items per page
-  const maxResults = 1000; // Maximum number of results to fetch
+  const licenseQuery = licenseType ? `license:${licenseType}` : ""; // Only apply if specific license
+  const perPage = 100; // Max per page by GitHub
+  const maxResults = 1000; // Max results to fetch
   let allProjects = [];
-  let page = 1; // Start from page 1
+  let page = 1;
 
   try {
-    // Keep fetching until we have 1000 results or there are no more pages
     while (allProjects.length < maxResults) {
       const response = await axios.get(
         "https://api.github.com/search/repositories",
@@ -48,7 +58,7 @@ export const fetchProjectsByLicense = async (licenseType = "") => {
             sort: "stars",
             order: "desc",
             per_page: perPage,
-            page: page, // Request the next page
+            page,
           },
           headers,
         }
@@ -57,21 +67,17 @@ export const fetchProjectsByLicense = async (licenseType = "") => {
       const newProjects = response.data.items;
       allProjects = [...allProjects, ...newProjects];
 
-      // If we have fewer than `perPage` results, break the loop (no more results)
-      if (newProjects.length < perPage) {
-        break;
-      }
+      if (newProjects.length < perPage) break; // Stop if fewer results
 
-      page++; // Increment page for the next request
+      page++;
     }
 
-    return allProjects.slice(0, maxResults); // Ensure we only return up to 1000 results
+    return allProjects.slice(0, maxResults); // Limit to maxResults
   } catch (error) {
     console.error("Error fetching projects by license:", error);
     throw error;
   }
 };
-
 
 export const truncateDescription = (description, wordLimit = 30) => {
   const words = description.split(" ");
@@ -80,7 +86,6 @@ export const truncateDescription = (description, wordLimit = 30) => {
   }
   return description;
 };
-
 
 // Helper function to format numbers with suffixes (e.g., 1k, 1M)
 export const formatNumber = (num) => {

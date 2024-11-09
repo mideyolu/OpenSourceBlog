@@ -57,7 +57,9 @@ const HomePage = () => {
           </Button>
         </div>
       </div>
-  
+
+
+
       {/* Top Trending Section */}
       <div ref={trendingSectionRef} className="px-[1.2rem]">
         {" "}
