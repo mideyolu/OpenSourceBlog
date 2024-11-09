@@ -48,18 +48,24 @@ const Navbar = () => {
         </div>
         <div
           className={`${
-            open ? "shadow-md top-[10%]" : "-top-[100%]"
-          } absolute mt-2 right-[20%] flex flex-col items-center justify-between gap-[4rem] py-2 px-5 w-[25%] rounded-md transition-all duration-300 ease-in-out md:hidden dark:bg-blue-gray-800 shadow-md`}
+            open ? "shadow-md top-[7%]" : "-top-[100%]"
+          } absolute mt-2 left-0 flex items-center justify-between gap-[4rem] py-2 px-5  w-full rounded-md transition-all duration-300 ease-in-out md:hidden dark:bg-black shadow-md z-100`}
         >
-          <Link to={"/"} onClick={changeMenu}>Home</Link>
-          <Link to={"/projects"} onClick={changeMenu}>Projects</Link>
-          <button onClick={toggleDarkMode}>
-            {darkMode ? (
-              <FaSun className="text-yellow-600" onClick={changeMenu} />
-            ) : (
-              <FaMoon className="text-gray-700" onClick={changeMenu} />
-            )}
-          </button>
+          <div className=" flex items-center gap-4 flex-col">
+            <Link to={"/"} onClick={changeMenu}>
+              Home
+            </Link>
+            <Link to={"/projects"} onClick={changeMenu}>
+              Projects
+            </Link>
+            <button onClick={toggleDarkMode}>
+              {darkMode ? (
+                <FaSun className="text-yellow-600" onClick={changeMenu} />
+              ) : (
+                <FaMoon className="text-gray-700" onClick={changeMenu} />
+              )}
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -18,6 +18,7 @@ const ProjectPage = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const projectsPerPage = 12;
   const projectsPerRow = 4; // Define how many projects per row in each slider
 
@@ -55,6 +56,14 @@ const ProjectPage = () => {
     setCurrentPage(1);
   }, [searchQuery, projects]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const indexOfLastProject = currentPage * projectsPerPage;
   const indexOfFirstProject = indexOfLastProject - projectsPerPage;
   const currentProjects = filteredProjects.slice(
@@ -76,7 +85,7 @@ const ProjectPage = () => {
     dots: true,
     infinite: true,
     speed: 300,
-    slidesToShow: 3,
+    slidesToShow: windowWidth < 768 ? 1 : 3, // Show 1 slide on mobile (width < 768px), otherwise 3
     slidesToScroll: 1,
     autoplay: true,
     arrows: false,
