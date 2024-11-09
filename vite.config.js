@@ -11,4 +11,7 @@ export default defineConfig({
     "**/*.ttf",
     "node_modules/slick-carousel/slick/fonts/*",
   ],
+  rollupOptions: {
+    external: ["react-icons/io5"],
+  },
 });
