@@ -97,6 +97,10 @@ The Open Source Blog tries to create an environment where developers and open so
 [![131.png](https://i.postimg.cc/Cx0BbqbJ/131.png)](https://postimg.cc/Lny8phCZ)
 
 
+#### Filter Mode
+[![PFilter.png](https://i.postimg.cc/LsTzJV7z/PFilter.png)](https://postimg.cc/XZrZh9nJ)
+
+
 
 
 
@@ -124,5 +128,3 @@ The Open Source Blog tries to create an environment where developers and open so
 ## License
 
 [GPL](https://www.gnu.org/licenses/gpl-3.0.html)
-
-

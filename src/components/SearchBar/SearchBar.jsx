@@ -14,7 +14,7 @@ const SearchBar = ({
         onChange={onChange} // Call onChange function when the input value changes
         placeholder={placeholder} // Set placeholder text for the input
         className={`border bg-[#f7fafc] border-gray-200 border-solid mt-[0.4rem] inline-block w-[120%] md:w-[150%] outline-none rounded-[1.3rem] mb-[0.9rem] text-left py-[0.7rem] px-[1.05rem] transition-all
-             focus:bg-transparent focus:border focus:border-gray-400 duration-75 ease-in-out ${className}`} // Apply styles and additional classes
+             focus:bg-transparent focus:border focus:border-gray-400 duration-75 ease-in-out dark:bg-black ${className}`} // Apply styles and additional classes
       />
     </div>
   );
