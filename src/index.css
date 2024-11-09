@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'slick';
+  src: url('/fonts/slick/slick.woff') format('woff'),
+       url('/fonts/slick/slick.ttf') format('truetype');
+}
+
