@@ -77,6 +77,29 @@ The Open Source Blog tries to create an environment where developers and open so
 <li>Project Details:  Each project listing includes key details such as project name, description, license type, stars, and forks, along with a link to the project's GitHub repository.</li>
 </ol>
 </li>
+
+
+
+## Screenshots
+### **Home Page**
+#### Light Mode
+[![Screenshot-725.png](https://i.postimg.cc/wjRJkprT/Screenshot-725.png)](https://postimg.cc/BjsXqdsd)
+
+#### Dark Mode
+[![home.png](https://i.postimg.cc/3wRwZCNj/home.png)](https://postimg.cc/jDpKxfzC)
+
+### **Project Page**
+
+#### Light Mode
+[![filter.png](https://i.postimg.cc/XYnqr00z/filter.png)](https://postimg.cc/bsFp5Wrx)
+
+#### Dark Mode
+[![131.png](https://i.postimg.cc/Cx0BbqbJ/131.png)](https://postimg.cc/Lny8phCZ)
+
+
+
+
+
 </ul><h5>Steps</h5><ul>
 <li>Setting Up Vite with React</li>
 </ul><ul>
@@ -95,3 +118,11 @@ The Open Source Blog tries to create an environment where developers and open so
 <li>npm install axios swiper react-router-dom react-icons</li>
 </ul><h2>Contact</h2>
 <hr><p><span style="margin-right: 30px;"></span><a href="https://github.com/mideyolu"><img target="_blank" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" style="width: 10%;"></a></p>
+
+
+
+## License
+
+[GPL](https://www.gnu.org/licenses/gpl-3.0.html)
+
+
