@@ -7,9 +7,6 @@ import {
 import ProjectCard from "../../components/ProjectCard/ProjectCard";
 import Loader from "../../components/Loader/Loader";
 import SearchBar from "../../components/SearchBar/SearchBar";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 const ProjectPage = () => {
   const [projects, setProjects] = useState([]);
@@ -20,7 +17,7 @@ const ProjectPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const projectsPerPage = 12;
-  const projectsPerRow = 4; // Define how many projects per row in each slider
+  const projectsPerRow = 4;
 
   const handleLicenseChange = (e) => {
     setLicenseType(e.target.value);
@@ -81,17 +78,6 @@ const ProjectPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
 
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 300,
-    slidesToShow: windowWidth < 768 ? 1 : 3, // Show 1 slide on mobile (width < 768px), otherwise 3
-    slidesToScroll: 1,
-    autoplay: true,
-    arrows: false,
-    autoplaySpeed: 2000,
-  };
-
   // Split projects into rows
   const rows = [];
   for (let i = 0; i < currentProjects.length; i += projectsPerRow) {
@@ -141,7 +127,10 @@ const ProjectPage = () => {
         ) : (
           <>
             {rows.map((row, rowIndex) => (
-              <Slider key={rowIndex} {...sliderSettings} className="my-4">
+              <div
+                key={rowIndex}
+                className="project-row my-4 grid grid-cols-1 md:grid-cols-4 gap-4"
+              >
                 {row.map((project) => (
                   <ProjectCard
                     key={project.id}
@@ -158,7 +147,7 @@ const ProjectPage = () => {
                     forks={project.forks_count}
                   />
                 ))}
-              </Slider>
+              </div>
             ))}
 
             <div className="pagination-controls mt-4 flex items-center justify-center space-x-4">

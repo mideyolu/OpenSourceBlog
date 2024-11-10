@@ -27,7 +27,7 @@ const Navbar = () => {
   return (
     <div className="py-4 rounded-md shadow-md ">
       <div className="flex items-center justify-around gap-1">
-        <Link to={'/'}>OSS BLOG</Link>
+        <Link to={'/'}>OSS DIR</Link>
         <div className="block md:hidden relative cursor-pointer" onClick={menu}>
           {open ? (
             <RxCross1 className="text-[1.7rem]" />
