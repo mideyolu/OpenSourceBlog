@@ -85,7 +85,8 @@ const ProjectPage = () => {
   }
 
   return (
-    <div>
+    <div className="">
+
       <div className="mt-4 flex flex-col md:flex-row items-center justify-center md:justify-around space-x-4 md:space-x-9 gap-4">
         <div className="left">
           <SearchBar
@@ -121,7 +122,8 @@ const ProjectPage = () => {
         </div>
       </div>
 
-      <div className="bottom">
+
+      <div className="flex items-center justify-center flex-col">
         {loading ? (
           <Loader />
         ) : (
@@ -129,7 +131,7 @@ const ProjectPage = () => {
             {rows.map((row, rowIndex) => (
               <div
                 key={rowIndex}
-                className="project-row my-4 grid grid-cols-1 md:grid-cols-4 gap-4"
+                className="project-row my-4 grid grid-cols-1 md:grid-cols-4 gap-4 w-[90%] items-center justify-center place-content-center content-center"
               >
                 {row.map((project) => (
                   <ProjectCard
@@ -154,9 +156,9 @@ const ProjectPage = () => {
               <button
                 onClick={handlePrevPage}
                 disabled={currentPage === 1}
-                className="px-[0.6rem] w-[20%] cursor-pointer hover:scale-105 py-[0.8rem] font-semibold bg-white mx-2 border rounded-md transition duration-200 text-2rem lg:text-[1.3rem] md:text-[1rem] dark:text-black"
+                className="px-[0.6rem] w-[20%] cursor-pointer hover:scale-105 py-[0.8rem] font-semibold bg-white mx-2 border rounded-md transition duration-200 text-1rem lg:text-[1.1rem] md:text-[1rem] dark:text-black"
               >
-                Previous
+                Prev
               </button>
               <span>
                 Page {currentPage} of {totalPages}
@@ -164,7 +166,7 @@ const ProjectPage = () => {
               <button
                 onClick={handleNextPage}
                 disabled={currentPage === totalPages}
-                className="px-[0.6rem] w-[20%] cursor-pointer hover:scale-105 py-[0.8rem] font-semibold bg-white mx-2 border rounded-md transition duration-200 text-2rem lg:text-[1.3rem] md:text-[1rem] dark:text-black"
+                className="px-[0.6rem] w-[20%] cursor-pointer hover:scale-105 py-[0.8rem] font-semibold bg-white mx-2 border rounded-md transition duration-200 text-1rem lg:text-[1.1rem] md:text-[1rem] dark:text-black"
               >
                 Next
               </button>

@@ -79,7 +79,7 @@ export const fetchProjectsByLicense = async (licenseType = "") => {
   }
 };
 
-export const truncateDescription = (description, wordLimit = 20) => {
+export const truncateDescription = (description, wordLimit = 15) => {
   const words = description.split(" ");
   if (words.length > wordLimit) {
     return words.slice(0, wordLimit).join(" ") + "..."; // Truncate and add ellipsis
